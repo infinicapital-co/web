@@ -4,171 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Infini Capital</title>
-  <meta name="description" content="Infini Capital — Proprietary Quantitative Trading Firm" />
+  <meta name="description" content="Infini Capital — Proprietary capital, systematic edge, disciplined execution." />
   <style>
     :root {
-      --bg: #0b0f14;
-      --panel: #111720;
-      --panel-2: #0f141c;
-      --text: #e7edf5;
-      --muted: #9aa7b6;
-      --line: rgba(255,255,255,0.08);
-      --accent: #3dd6c6;
-      --accent-2: #6aa9ff;
-      --shadow: 0 18px 50px rgba(0,0,0,0.35);
-      --radius: 20px;
+      --bg: #0a0a0a;
+      --panel: #111111;
+      --panel-2: #161616;
+      --text: #f3f3f3;
+      --muted: #a0a0a0;
+      --line: rgba(255,255,255,0.10);
+      --line-strong: rgba(255,255,255,0.18);
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+      --radius: 22px;
       --max: 1080px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(61,214,198,0.10), transparent 28%),
-        radial-gradient(circle at top right, rgba(106,169,255,0.09), transparent 26%),
-        linear-gradient(180deg, #090c10 0%, #0b0f14 100%);
-      color: var(--text);
+        radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 24%),
+        linear-gradient(180deg, #080808 0%, #0a0a0a 100%);
       line-height: 1.6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .wrap {
-      width: min(100% - 32px, var(--max));
-      margin: 0 auto;
-    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(100% - 32px, var(--max)); margin: 0 auto; }
 
     header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      position: sticky; top: 0; z-index: 20;
       backdrop-filter: blur(16px);
-      background: rgba(9, 12, 16, 0.72);
+      background: rgba(10,10,10,0.78);
       border-bottom: 1px solid var(--line);
     }
 
     .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-      gap: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0; gap: 16px;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 13px;
     }
-
     .mark {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 18px rgba(61,214,198,0.5);
+      width: 11px; height: 11px; border-radius: 50%;
+      background: #f3f3f3;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.06);
     }
 
     .nav-links {
-      display: flex;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 14px;
+      display: flex; gap: 18px; color: var(--muted); font-size: 14px;
     }
+    .nav-links a:hover { color: var(--text); }
 
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .hero {
-      padding: 84px 0 42px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 0.9fr;
-      gap: 24px;
-      align-items: stretch;
+    .hero { padding: 82px 0 34px; }
+    .grid {
+      display: grid; grid-template-columns: 1.45fr 0.85fr; gap: 22px; align-items: stretch;
     }
 
     .card {
-      background: linear-gradient(180deg, rgba(17,23,32,0.96), rgba(13,18,25,0.96));
+      background: linear-gradient(180deg, rgba(17,17,17,0.96), rgba(12,12,12,0.96));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
 
-    .hero-main {
-      padding: 40px;
-      min-height: 100%;
-    }
-
+    .hero-main { padding: 42px; }
     .eyebrow {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 18px;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.24em;
+      font-size: 11px; font-weight: 700; margin-bottom: 18px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2.5rem, 6vw, 4.8rem);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
+      font-size: clamp(2.7rem, 7vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      max-width: 10ch;
     }
 
     .lead {
-      margin: 18px 0 0;
+      margin: 16px 0 0;
       max-width: 58ch;
       color: var(--muted);
-      font-size: 1.05rem;
+      font-size: 0.96rem;
+      line-height: 1.65;
+      font-weight: 400;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 28px;
+    .actions {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      font-weight: 600;
-      font-size: 14px;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 18px; border-radius: 999px;
+      border: 1px solid var(--line-strong); font-weight: 600; font-size: 14px;
       transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      background: rgba(255,255,255,0.02);
     }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(61,214,198,0.45);
-    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.35); }
 
     .btn.primary {
-      background: linear-gradient(135deg, rgba(61,214,198,0.18), rgba(106,169,255,0.16));
-      color: var(--text);
+      background: #f3f3f3;
+      color: #0a0a0a;
+      border-color: #f3f3f3;
     }
 
-    .hero-side {
+    .side {
       padding: 28px;
       display: grid;
       gap: 14px;
@@ -180,44 +128,33 @@
       border: 1px solid var(--line);
       border-radius: 16px;
     }
-
     .stat .label {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 6px;
+      color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
     }
-
     .stat .value {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 16px; font-weight: 650; line-height: 1.35;
     }
 
-    section {
-      padding: 18px 0 0;
-    }
+    section { padding: 18px 0 0; }
+    .section-card { padding: 30px 32px; }
 
-    .section-card {
-      padding: 30px 32px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+    .section-head {
+      display: flex; align-items: end; justify-content: space-between; gap: 16px;
       margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
     }
+    h2 { margin: 0; font-size: 1.05rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .section-note { color: var(--muted); font-size: 13px; }
 
-    h2 {
-      margin: 0;
-      font-size: 1.4rem;
-      letter-spacing: -0.02em;
-    }
-
-    .section-note {
+    .copy {
       color: var(--muted);
+      max-width: 82ch;
+      margin: 0;
       font-size: 14px;
+      line-height: 1.75;
     }
+    .copy + .copy { margin-top: 12px; }
 
     .grid-3 {
       display: grid;
@@ -227,87 +164,56 @@
 
     .mini {
       padding: 18px;
-      border: 1px solid var(--line);
       border-radius: 16px;
       background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      min-height: 150px;
     }
-
-    .mini h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
+    .mini .kicker {
+      color: var(--muted); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px;
     }
-
-    .mini p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .mini h3 { margin: 0 0 10px; font-size: 17px; }
+    .mini p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
 
     .contact {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
-
     .contact-box {
       padding: 20px;
-      border: 1px solid var(--line);
       border-radius: 16px;
       background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
     }
-
     .contact-box .label {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 8px;
+      color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
     }
+    .contact-box .value { font-size: 16px; font-weight: 600; word-break: break-word; }
 
-    .contact-box .value {
-      font-size: 16px;
-      font-weight: 600;
-      word-break: break-word;
-    }
-
-    footer {
+    .footer {
       padding: 40px 0 28px;
+      text-align: center;
       color: var(--muted);
       font-size: 13px;
-      text-align: center;
     }
 
     @media (max-width: 880px) {
-      .hero-grid,
-      .grid-3,
-      .contact {
-        grid-template-columns: 1fr;
-      }
-
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero {
-        padding-top: 52px;
-      }
-
-      .hero-main,
-      .section-card {
-        padding: 24px;
-      }
+      .grid, .grid-3, .contact { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+      .hero { padding-top: 52px; }
+      .hero-main, .section-card { padding: 24px; }
+      .section-head { align-items: start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <div class="brand">
-        <span class="mark"></span>
-        <span>Infini Capital</span>
-      </div>
+      <div class="brand"><span class="mark"></span><span>Infini Capital</span></div>
       <nav class="nav-links">
         <a href="#about">About</a>
-        <a href="#focus">Focus</a>
+        <a href="#approach">Approach</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -315,31 +221,31 @@
 
   <main class="wrap">
     <section class="hero">
-      <div class="hero-grid">
+      <div class="grid">
         <div class="card hero-main">
           <div class="eyebrow">Finding Alpha</div>
           <h1>Infini Capital</h1>
           <p class="lead">
-            A quantitative proprietary trading firm that continuously pursues alpha and edge across the financial markets of the world
+            A discreet proprietary trading firm focused on systematic edge, selective execution, and capital preservation.
           </p>
-          <div class="hero-actions">
+          <div class="actions">
             <a class="btn primary" href="#contact">Contact</a>
-            <a class="btn" href="#about">Learn More</a>
+            <a class="btn" href="#about">About</a>
           </div>
         </div>
 
-        <div class="card hero-side">
+        <div class="card side">
           <div class="stat">
-            <div class="label">Quantitative</div>
-            <div class="value">10 auto-trade systems across US and Indian Markets</div>
+            <div class="label">Market Style</div>
+            <div class="value">Intraday, short-horizon, rules-aware</div>
           </div>
           <div class="stat">
-            <div class="label">Engine</div>
-            <div class="value">Research>>Risk>>Refine </div>
+            <div class="label">Operating Mode</div>
+            <div class="value">Mostly systematic, selectively discretionary</div>
           </div>
           <div class="stat">
-            <div class="label">Alpha</div>
-            <div class="value">Stocks, Futures, MFT across India and USA</div>
+            <div class="label">Core Belief</div>
+            <div class="value">Good process survives bad periods</div>
           </div>
         </div>
       </div>
@@ -347,38 +253,42 @@
 
     <section id="about">
       <div class="card section-card">
-        <div class="section-title">
+        <div class="section-head">
           <h2>About</h2>
-          <div class="section-note">Alpha lifecycle</div>
+          <div class="section-note">Quiet, long-term, minimal</div>
         </div>
-        <p class="lead" style="margin-top:0; max-width: 78ch;">
-          Infini Capital began with a singular focus: using data to build strategies that work on intraday stock trading. Primarily operating in Indian equity markets across a universe of 4,000+ stocks, operations have since expanded to US equities, metals, bullion, IPOs, and futures.
+        <p class="copy">
+          Infini Capital began with a simple goal: identify repeatable edges in liquid markets and execute them with discipline.
+          The firm has evolved across Indian and U.S. markets, with work spanning equities, ETFs, bullion, futures, and event-driven opportunities.
         </p>
-        <p class="lead" style="margin-top:0; max-width: 78ch;">
-          Core operations evolved from manual discretionary trading to fully automated, system-driven trade execution — based on price action, volume, and risk management criteria. Every model is rigorously tested before live deployment.
+        <p class="copy">
+          The public-facing story stays intentionally understated. The real focus is process quality, risk control, and the ability to keep improving without noise.
         </p>
       </div>
     </section>
 
-    <section id="focus">
+    <section id="approach">
       <div class="card section-card">
-        <div class="section-title">
-          <h2>Focus Areas</h2>
-          <div class="section-note">Infini finds Alpha</div>
+        <div class="section-head">
+          <h2>Approach</h2>
+          <div class="section-note">A few principles, not a brochure</div>
         </div>
 
         <div class="grid-3">
           <div class="mini">
+            <div class="kicker">01</div>
             <h3>Research</h3>
-            <p>Market data, signals, backtesting, and structured analysis.</p>
+            <p>Observe, test, and keep only what shows a clear edge.</p>
           </div>
           <div class="mini">
+            <div class="kicker">02</div>
             <h3>Execution</h3>
-            <p>Reliable automated trading workflows.</p>
+            <p>Act with discipline. Keep trade selection and risk management separate.</p>
           </div>
           <div class="mini">
-            <h3>Infrastructure</h3>
-            <p>Agentic AI driven tools, systems, and monitoring built for consistency.</p>
+            <div class="kicker">03</div>
+            <h3>Adaptation</h3>
+            <p>Respect regime changes. Refine quietly and continuously.</p>
           </div>
         </div>
       </div>
@@ -386,9 +296,9 @@
 
     <section id="contact">
       <div class="card section-card">
-        <div class="section-title">
+        <div class="section-head">
           <h2>Contact</h2>
-          <div class="section-note">Connect</div>
+          <div class="section-note">Direct and simple</div>
         </div>
 
         <div class="contact">
@@ -405,8 +315,6 @@
     </section>
   </main>
 
-  <footer>
-    © 2026 Infini Capital. All rights reserved.
-  </footer>
+  <div class="footer">© 2026 Infini Capital</div>
 </body>
 </html>
