@@ -29,39 +29,12 @@
       margin:0;
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
-      background:#050506;
+      background:radial-gradient(circle at 75% 4%,rgba(118,230,255,.05),transparent 28rem),radial-gradient(circle at 8% 28%,rgba(185,255,104,.04),transparent 26rem),#050506;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.6;
       position:relative;
       overflow-x:hidden;
-    }
-
-    .video-bg{
-      position:fixed;
-      inset:0;
-      z-index:-3;
-      overflow:hidden;
-      background:#050505;
-    }
-
-    .video-bg video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      opacity:0.60;
-      filter:grayscale(100%) contrast(1.08) brightness(0.50);
-      transform:scale(1.03);
-    }
-
-    .video-overlay{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      pointer-events:none;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.58) 28%, rgba(0,0,0,0.76) 100%),
-        radial-gradient(circle at center, rgba(255,255,255,0.03), transparent 42%);
     }
 
     .wrap{width:min(100% - 32px, var(--max)); margin:0 auto}
@@ -88,6 +61,45 @@
     .nav-links{display:flex; gap:18px; color:var(--muted); font-size:14px}
     .nav-links a{opacity:.92; color:inherit; text-decoration:none}
     .nav-links a:hover{color:var(--text)}
+
+    .dropdown{position:relative}
+    .dropdown-toggle{
+      display:flex;align-items:center;gap:6px;
+      cursor:pointer;color:inherit;text-decoration:none;
+    }
+    .dropdown-toggle::after{
+      content:"";width:7px;height:7px;
+      border-right:1.5px solid currentColor;
+      border-bottom:1.5px solid currentColor;
+      transform:rotate(45deg) translateY(-2px);
+      opacity:.7;
+    }
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:50%;
+      transform:translateX(-50%) translateY(-6px);
+      min-width:190px;
+      background:rgba(12,12,12,.96);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      box-shadow:0 20px 50px rgba(0,0,0,.6);
+      padding:8px;
+      opacity:0;visibility:hidden;
+      transition:opacity .16s ease,transform .16s ease,visibility .16s;
+      z-index:50;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{
+      opacity:1;visibility:visible;
+      transform:translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a{
+      display:block;padding:9px 12px;border-radius:9px;
+      color:var(--muted);font-size:14px;text-decoration:none;
+      transition:background .12s ease,color .12s ease;
+    }
+    .dropdown-menu a:hover{
+      background:rgba(255,255,255,.05);color:var(--text);
+    }
 
     .hero{padding:78px 0 34px}
     .grid{display:grid; grid-template-columns:1.45fr 0.85fr; gap:22px; align-items:stretch}
@@ -350,22 +362,9 @@
       .hero{padding-top:56px}
       .hero-main, .section-card{padding:20px}
       #about .copy{max-width:100%}
-      .video-bg video{
-        opacity:0.12;
-        filter:grayscale(100%) contrast(1.02) brightness(0.28);
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .video-bg {
-        display:none;
-      }
-
-      .video-overlay {
-        background:
-          linear-gradient(180deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.72) 40%, rgba(0,0,0,0.82) 100%);
-      }
-
       .card,
       .card:hover {
         transform:none;
@@ -374,13 +373,6 @@
   </style>
 </head>
 <body>
-  <div class="video-bg" aria-hidden="true">
-    <video id="bgVideo" autoplay muted loop playsinline preload="metadata" poster="Logoraw.png">
-      <source src="353844.mp4" type="video/mp4" />
-    </video>
-  </div>
-  <div class="video-overlay" aria-hidden="true"></div>
-
   <header>
     <div class="wrap nav">
       <div class="brand"><span class="mark"></span><span>Infini Capital</span></div>
@@ -388,7 +380,13 @@
         <a href="#about">About</a>
         <a href="#approach">Approach</a>
         <a href="#contact">Contact</a>
-        <a href="blackboard.html">QFactory</a>
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="blackboard.html">QFactory</a>
+          <div class="dropdown-menu">
+            <a href="blackboard.html">Blackboard</a>
+            <a href="orchestration.html">Orchestration</a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -492,13 +490,5 @@
   </main>
 
   <div class="footer">© 2026 Infini Capital</div>
-
-  <script>
-    const bgVideo = document.getElementById('bgVideo');
-
-    bgVideo.addEventListener('loadedmetadata', () => {
-      bgVideo.playbackRate = 0.85;
-    });
-  </script>
 </body>
 </html>
