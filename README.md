@@ -11,4 +11,12 @@ Static website for Infini Capital, a proprietary quantitative investment firm fo
 This is a simple static site (HTML + CSS, no build step). Pages are linked through the top navigation; the QFactory dropdown connects the Blackboard and Orchestration articles.
 
 ## How to view locally
-Open `index.html` directly in a browser, or serve the folder with any static server:
+Open `index.html` directly in a browser, or serve the folder with any static server: python -m http.server 8000
+
+Then visit `http://localhost:8000`.
+
+## Deployment
+Hosted as a static site (e.g., GitHub Pages or similar). Push changes to the main branch to update the live site.
+
+## Contact
+infinicapital.co@gmail.com
