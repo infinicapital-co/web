@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Resilience | Infini Capital</title>
+  <meta name="description" content="A frugal, portable, and rebuildable foundation for continuous quantitative operations: preserving the complete working state of an autonomous system across disruption, relocation, and scale.">
+
+  <style>
+    :root {
+      --bg: #070809;
+      --panel: #111518;
+      --line: rgba(255, 255, 255, .1);
+      --line2: rgba(255, 255, 255, .06);
+      --ink: #f5f7f8;
+      --muted: #9ca6ab;
+      --soft: #cbd2d5;
+      --accent: #b9ff68;
+      --blue: #76e6ff;
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 75% 4%, rgba(118, 230, 255, .08), transparent 28rem),
+        radial-gradient(circle at 8% 28%, rgba(185, 255, 104, .06), transparent 26rem),
+        var(--bg);
+      color: var(--ink);
+      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(7, 8, 9, .78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line2);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(185, 255, 104, .55);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .brand-mark:before,
+    .brand-mark:after {
+      content: "";
+      position: absolute;
+      background: var(--accent);
+    }
+
+    .brand-mark:before {
+      width: 12px;
+      height: 1px;
+      left: 7px;
+      top: 13px;
+    }
+
+    .brand-mark:after {
+      width: 1px;
+      height: 12px;
+      left: 13px;
+      top: 7px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .navlinks a:hover,
+    .navlinks .active {
+      color: var(--ink);
+    }
+
+    main {
+      padding-bottom: 80px;
+    }
+
+    .hero {
+      padding: 82px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(24, 29, 31, .92), rgba(10, 12, 13, .86));
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .45);
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      padding: 56px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      min-width: 0;
+    }
+
+    .hero-copy:after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -100px;
+      bottom: -130px;
+      border: 1px solid rgba(185, 255, 104, .17);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 28px rgba(185, 255, 104, .025),
+        0 0 0 56px rgba(185, 255, 104, .018);
+    }
+
+    .kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6.6vw, 6rem);
+      letter-spacing: -.07em;
+      line-height: .95;
+      margin: 20px 0 18px;
+      overflow-wrap: anywhere;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-lead {
+      color: var(--soft);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-side {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .side-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+    }
+
+    .signal {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line2);
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+      flex-shrink: 0;
+    }
+
+    .dot.blue {
+      background: var(--blue);
+      box-shadow: 0 0 16px var(--blue);
+    }
+
+    .dot.yellow {
+      background: #ffd166;
+      box-shadow: 0 0 16px #ffd166;
+    }
+
+    .side-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 24px 0 0;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .button {
+      display: inline-flex;
+      padding: 11px 17px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 750;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #10150b;
+    }
+
+    .article {
+      margin-top: 18px;
+      padding: 46px 56px;
+    }
+
+    .section {
+      padding: 18px 0 50px;
+      border-bottom: 1px solid var(--line2);
+      scroll-margin-top: 110px;
+    }
+
+    .section:last-child {
+      border: 0;
+      padding-bottom: 0;
+    }
+
+    .heading {
+      display: flex;
+      align-items: baseline;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .num {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: .14em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+      letter-spacing: -.04em;
+    }
+
+    .text {
+      max-width: 800px;
+      color: var(--soft);
+      margin: 0 0 16px;
+    }
+
+    .definition {
+      margin: 24px 0;
+      padding: 24px;
+      border-left: 2px solid var(--accent);
+      background: linear-gradient(90deg, rgba(185, 255, 104, .07), transparent);
+      border-radius: 0 14px 14px 0;
+    }
+
+    .definition strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .definition span {
+      color: var(--muted);
+    }
+
+    .cards,
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .feature,
+    .arch-box {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      min-width: 0;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+
+    .feature p,
+    .arch-box p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .arch-box {
+      background: linear-gradient(145deg, rgba(118, 230, 255, .06), rgba(255, 255, 255, .015));
+    }
+
+    .callout {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border: 1px solid rgba(118, 230, 255, .2);
+      border-radius: 17px;
+      background: rgba(118, 230, 255, .045);
+      color: var(--soft);
+    }
+
+    .callout b {
+      color: var(--blue);
+    }
+
+    .diagram {
+      margin: 30px 0 10px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(118, 230, 255, .07), transparent 22rem),
+        linear-gradient(145deg, rgba(24, 29, 31, .92), rgba(10, 12, 13, .86));
+    }
+
+    .diagram-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--accent);
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .continuity-loop {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+    }
+
+    .loop-node {
+      position: relative;
+      padding: 18px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .025);
+      min-width: 0;
+    }
+
+    .loop-node:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -12px;
+      width: 12px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(185, 255, 104, .8), rgba(185, 255, 104, .15));
+    }
+
+    .loop-node:last-child:before {
+      display: none;
+    }
+
+    .loop-id {
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .loop-node h3 {
+      font-size: 14px;
+      margin: 10px 0 5px;
+    }
+
+    .loop-node p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .loop-return {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border: 1px dashed rgba(118, 230, 255, .35);
+      border-radius: 14px;
+      color: var(--soft);
+      font-size: 13px;
+      background: rgba(118, 230, 255, .04);
+    }
+
+    .loop-return b {
+      color: var(--blue);
+    }
+
+    .list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .list > div {
+      padding: 14px 16px;
+      border: 1px solid var(--line2);
+      border-radius: 12px;
+      color: var(--soft);
+      font-size: 14px;
+      background: rgba(255, 255, 255, .018);
+    }
+
+    .footer {
+      padding: 26px 0 44px;
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 5px;
+    }
+
+    @media (max-width: 820px) {
+      .hero-grid,
+      .architecture,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .article {
+        padding: 30px 24px;
+      }
+
+      .hero-copy {
+        min-height: 0;
+      }
+
+      .continuity-loop {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .loop-node:before {
+        display: none;
+      }
+
+      .list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .navlinks {
+        gap: 12px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: calc(100% - 24px);
+      }
+
+      .continuity-loop {
+        grid-template-columns: 1fr;
+      }
+
+      .article {
+        padding: 24px 18px;
+      }
+
+      .hero-copy {
+        padding: 28px 20px;
+      }
+
+      .heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Infini Capital
+      </a>
+
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="blackboard.html">Blackboard</a>
+        <a href="orchestration.html">Orchestration</a>
+        <a href="automation.html">Automation</a>
+        <a class="active" aria-current="page" href="resilience.html">Resilience</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="panel hero-copy">
+            <div>
+              <div class="kicker">Operating architecture / 04</div>
+              <h1>Resilience</h1>
+              <p class="hero-lead">
+                A frugal, portable, and rebuildable foundation for continuous quantitative operations.
+              </p>
+            </div>
+
+            <div class="actions">
+              <a class="button primary" href="#resilience">Explore the approach</a>
+              <a class="button" href="#section-4">Explore continuity ↓</a>
+            </div>
+          </div>
+
+          <aside class="panel hero-side">
+            <div>
+              <div class="side-label">Design priorities</div>
+
+              <div class="signal">
+                <span class="dot" aria-hidden="true"></span>
+                Frugal and portable architecture
+              </div>
+
+              <div class="signal">
+                <span class="dot blue" aria-hidden="true"></span>
+                Rapid recovery and replication
+              </div>
+
+              <div class="signal">
+                <span class="dot yellow" aria-hidden="true"></span>
+                Zero-worry operational continuity
+              </div>
+            </div>
+
+            <p class="side-note">
+              The objective is not merely to preserve files. It is to preserve the ability to resume, rebuild, and continue an entire working operation with minimal friction.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="resilience" class="panel article">
+        <div class="section" id="section-1">
+          <div class="heading">
+            <span class="num">01</span>
+            <h2>The architecture of continuity</h2>
+          </div>
+
+          <p class="text">
+            A long-running automated operation requires more than functioning software. It requires an architecture that can preserve its working state, recover from interruption, move across environments, and continue without losing the context that makes its work meaningful.
+          </p>
+
+          <p class="text">
+            Automated systems do not become fragile because they are automated. They become fragile when their essential state is scattered across machines, undocumented dependencies, temporary configurations, and knowledge that exists only in the operator’s memory. A resilient architecture prevents that fragmentation by treating the entire working environment as a coherent, portable system.
+          </p>
+
+          <p class="text">
+            This is why the approach is deliberately frugal. It avoids unnecessary infrastructure, complex dependencies, and designs that require constant maintenance. It is elegant because the essential system remains understandable. It is rebuildable because its components and working state can be restored without archaeology. And it is mind-free because the operator does not need to remember how to reconstruct the system under pressure.
+          </p>
+
+          <div class="definition">
+            <strong>Resilience</strong>
+            <span>
+              The ability of an operating system to preserve its complete working state, recover rapidly from disruption, replicate across environments, and continue operating with its context, capability, and accumulated knowledge intact.
+            </span>
+          </div>
+
+          <div class="callout">
+            <b>The principle:</b> build an operation that can be moved, restored, and continued—not one that must be remembered, repaired, or reconstructed from fragments.
+          </div>
+        </div>
+
+        <div class="section" id="section-2">
+          <div class="heading">
+            <span class="num">02</span>
+            <h2>From backup to continuity</h2>
+          </div>
+
+          <p class="text">
+            A conventional backup preserves files. A resilient architecture preserves the ability to resume work. The distinction matters because a restored folder is not automatically a restored operation: dependencies may be missing, configurations may be incomplete, and the context that explains how the system reached its current state may be absent.
+          </p>
+
+          <p class="text">
+            The objective is to recover and rebuild in minutes, restoring not only the files but the complete working condition of the operation. The restored environment should be capable of functioning as it did before the interruption—and, where disruption revealed a weakness, it should return with additional knowledge about why the failure occurred and how recovery was achieved.
+          </p>
+
+          <p class="text">
+            This recovery metadata becomes part of the system’s institutional memory. A failure is not merely an event to survive; it is information that improves the next recovery, hardens the architecture, and makes future operation more dependable. The result is continuity that compounds rather than merely repeats.
+          </p>
+
+          <div class="cards">
+            <div class="feature">
+              <h3>Recovery</h3>
+              <p>
+                Restore the essential files, configurations, dependencies, and working state required to resume the operation.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>Reconstruction</h3>
+              <p>
+                Rebuild the environment on another machine without relying on undocumented steps or operator memory.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>Continuation</h3>
+              <p>
+                Resume the work with its context intact, rather than treating every restart as a new beginning.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>Compounding knowledge</h3>
+              <p>
+                Preserve what was learned from disruption, recovery, and adaptation as part of the operating system itself.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <b>The distinction:</b> backup preserves data. Resilience preserves the ability to operate.
+          </div>
+        </div>
+
+        <div class="section" id="section-3">
+          <div class="heading">
+            <span class="num">03</span>
+            <h2>The continuity model</h2>
+          </div>
+
+          <p class="text">
+            Resilience is achieved through a simple, repeatable cycle: capture the working state, package it into a portable form, replicate it across independent locations, rebuild it when needed, and resume the operation with its context preserved.
+          </p>
+
+          <figure class="diagram">
+            <div class="diagram-title">The continuity loop</div>
+
+            <div class="continuity-loop" role="list">
+              <div class="loop-node" role="listitem">
+                <div class="loop-id">01</div>
+                <h3>Capture</h3>
+                <p>
+                  Preserve the complete working state: code, configuration, research context, operational state, and recovery knowledge.
+                </p>
+              </div>
+
+              <div class="loop-node" role="listitem">
+                <div class="loop-id">02</div>
+                <h3>Package</h3>
+                <p>
+                  Compress the environment into a dated, portable archive that can be moved, stored, and restored as a unit.
+                </p>
+              </div>
+
+              <div class="loop-node" role="listitem">
+                <div class="loop-id">03</div>
+                <h3>Replicate</h3>
+                <p>
+                  Maintain independent copies across local and cloud locations, reducing dependence on any single failure domain.
+                </p>
+              </div>
+
+              <div class="loop-node" role="listitem">
+                <div class="loop-id">04</div>
+                <h3>Rebuild</h3>
+                <p>
+                  Restore the archive to a new environment and reconstruct the working system through a known, repeatable process.
+                </p>
+              </div>
+
+              <div class="loop-node" role="listitem">
+                <div class="loop-id">05</div>
+                <h3>Resume</h3>
+                <p>
+                  Continue the operation with its prior context, while incorporating what was learned from the interruption.
+                </p>
+              </div>
+            </div>
+
+            <figcaption class="loop-return">
+              <b>The perpetuity loop:</b> every recovery returns knowledge to the next captured state. The operation does not merely restart; it resumes with a more complete understanding of how to endure.
+            </figcaption>
+          </figure>
+
+          <p class="text">
+            The model is intentionally simple. It does not require an elaborate enterprise platform, a distributed cluster, or a specialized disaster-recovery system. It requires discipline in preserving the working state and a design that treats recovery as a normal operational capability rather than an emergency procedure.
+          </p>
+
+          <div class="definition">
+            <strong>Continuity architecture</strong>
+            <span>
+              A portable, replicable, and rebuildable representation of an operating system’s essential state, designed to preserve capability across disruption, relocation, and growth.
+            </span>
+          </div>
+        </div>
+
+        <div class="section" id="section-4">
+          <div class="heading">
+            <span class="num">04</span>
+            <h2>An organization in a portable state</h2>
+          </div>
+
+          <p class="text">
+            This is not merely a backup of selected project files. It is the preservation of an entire operating organization: its research environment, strategy definitions, execution workflows, operational state, configuration, documentation, and accumulated context. The archive represents a complete, self-contained instance of the work.
+          </p>
+
+          <p class="text">
+            When that state is restored to another laptop, the operation does not become a partial replica or a degraded version. It becomes a second complete instance, capable of operating independently. Each instance carries the same essential capability, while remaining free to evolve through its own research, execution, and recovery history.
+          </p>
+
+          <p class="text">
+            The architecture is designed to remain valid as the operation grows. Whether the working environment is measured in gigabytes today or becomes substantially larger over time, the underlying approach remains the same: preserve a coherent working state, replicate it simply, and restore it without redesigning the system. Scale changes the size of the archive; it does not change the principle of continuity.
+          </p>
+
+          <div class="architecture">
+            <div class="arch-box">
+              <h3>Complete state</h3>
+              <p>
+                The archive preserves the working organization, not merely a selection of files or a snapshot of source code.
+              </p>
+            </div>
+
+            <div class="arch-box">
+              <h3>Independent instances</h3>
+              <p>
+                A restored environment can operate as a full, self-contained instance rather than a dependent fragment of the original machine.
+              </p>
+            </div>
+
+            <div class="arch-box">
+              <h3>Portable by design</h3>
+              <p>
+                The system can move between laptops, locations, or compute environments without requiring a new architecture.
+              </p>
+            </div>
+
+            <div class="arch-box">
+              <h3>Scale-compatible</h3>
+              <p>
+                Growth increases the volume of preserved work, not the complexity of preserving, restoring, or continuing it.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <b>The principle:</b> preserve the organization, not only its files. Make every restored environment a complete and independent continuation of the operation.
+          </div>
+        </div>
+
+        <div class="section" id="section-5">
+          <div class="heading">
+            <span class="num">05</span>
+            <h2>Frugal and mind-free</h2>
+          </div>
+
+          <p class="text">
+            The strength of this architecture lies in its restraint. It does not attempt to anticipate every possible failure with elaborate infrastructure. Instead, it makes the essential system easy to understand, easy to preserve, and easy to restore. Complexity is introduced only where it earns its place.
+          </p>
+
+          <p class="text">
+            A frugal stack reduces the number of moving parts. An elegant stack keeps responsibilities clear and the path from research to operation understandable. A mind-free stack reduces reliance on memory: the next recovery should follow a known process, not depend on recalling a sequence of informal decisions made months earlier.
+          </p>
+
+          <p class="text">
+            This approach also keeps the operation manageable as it scales. Automated systems can begin when their environment is available, continue from preserved state, and operate without requiring the operator to reconstruct context manually. The technology becomes a dependable substrate for the work rather than a source of ongoing attention.
+          </p>
+
+          <div class="list">
+            <div><b>Frugal:</b> use only the infrastructure required to preserve and operate the system.</div>
+            <div><b>Rebuildable:</b> make restoration a repeatable process, not an improvised rescue.</div>
+            <div><b>Elegant:</b> keep the essential system understandable as it evolves.</div>
+            <div><b>Mind-free:</b> reduce dependence on memory, manual steps, and undocumented context.</div>
+            <div><b>Portable:</b> allow the complete working state to move across machines and locations.</div>
+            <div><b>Continuously operable:</b> enable work to resume with its context and capability intact.</div>
+          </div>
+        </div>
+
+<div class="section" id="section-6">
+  <div class="heading">
+    <span class="num">06</span>
+    <h2>Tacit</h2>
+  </div>
+
+  <p class="text">
+    Infini Capital treats resilience as part of the investment architecture, not as a separate technical concern—and not as a substitute for financial risk. A quantitative operation must preserve its research, recover its execution capability, adapt to disruption, and continue without losing the context that makes its work meaningful.
+  </p>
+
+  <p class="text">
+    The infrastructure is intentionally clean, native, accessible, and resilient. It is built with full control over the systems, data, and recovery path, using a zero-cost and zero-subscription foundation. This keeps the architecture simple, portable, and independently operable, while ensuring that continuity does not become another dependency to manage.
+  </p>
+
+  <p class="text">
+    The expectations placed on such a system are rarely stated in advance. They emerge through use: a machine changes, an environment must be restored, an operation must continue, or the archive must scale. The architecture is designed to meet those demands quietly—before they become urgent, and without requiring the operator to anticipate every possible failure.
+  </p>
+
+  <p class="text">
+    Automated systems start when their environment is available, resume from preserved state, and scale without turning continuity into an increasingly complicated problem. The archive remains manageable; the recovery path remains known; and the operation remains capable of continuing indefinitely.
+  </p>
+
+  <p class="text">
+    This is the future of quantitative operations: not a fragile collection of machines and scattered files, but a portable, resilient, and continuously evolving system. The firm preserves not only its data, but its ability to think, act, recover, and improve.
+  </p>
+
+  <div class="callout">
+    <b>The principle:</b> build an operation that meets expectations before they are spoken—portable in form, resilient under disruption, and simple enough to scale without becoming a burden.
+  </div>
+</div>      </section>
+
+      <footer class="footer">
+        <span>© 2026 Infini Capital</span>
+        <span>Proprietary capital · systematic edge · AI-assisted research</span>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
